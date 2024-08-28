@@ -1,3 +1,8 @@
+Here’s the updated README based on the structure and details you've provided, followed by the `main.cpp` implementation:
+
+## README.md
+
+```markdown
 # Wordle Solver
 
 A C++ based application designed to assist players in solving Wordle puzzles by recommending the best guesses based on letter frequency analysis.
@@ -5,7 +10,7 @@ A C++ based application designed to assist players in solving Wordle puzzles by 
 ## Features
 
 - **Initial Recommendations:** The application provides a list of the top five recommended starting words based on letter frequency analysis.
-- **Interactive GUI:** A simple graphical interface using `tkinter` where users can input their guesses and the results, and receive the best next guess based on the remaining possible words.
+- **Interactive GUI:** A simple graphical interface using a C++ framework (e.g., Qt or GTK) where users can input their guesses and the results, and receive the best next guess based on the remaining possible words.
 - **Customizable Word List:** The application loads valid Wordle words from a text file, allowing easy customization and updates.
 
 ## Project Structure
@@ -14,16 +19,22 @@ A C++ based application designed to assist players in solving Wordle puzzles by 
 wordle_solver/
 │
 ├── README.md                      # Project documentation
-├── valid_words.txt                # List of valid Wordle words
-├── starting_guesses.txt           # Generated list of top five starting words
+├── LICENSE                        # MIT License
+├── data/
+│   ├── valid_words.txt            # List of valid Wordle words
+│   └── starting_guesses.txt       # Generated list of top five starting words
 ├── src/
 │   ├── main.cpp                   # Entry point for the program
-│   ├── wordle_solver.cpp          # Core logic for word filtering and guess recommendation
-│   └── wordle_solver_gui.cpp      # Implementation of GUI using a C++ framework (e.g., Qt or GTK)
+│   └── wordle_solver.cpp          # Core logic for word filtering and guess recommendation
 ├── include/
 │   ├── wordle_solver.hpp          # Header for core logic functions
-│   └── wordle_solver_gui.hpp      # Header for GUI-related functions
+│   ├── fetch_valid_words.hpp      # Header for fetch_valid_words.cpp
+│   └── initial_guesses.hpp        # Header for initial_guesses.cpp
+├── utils/
+│   ├── fetch_valid_words.cpp      # Utility for fetching valid words
+│   └── initial_guesses.cpp        # Utility for generating initial guesses
 └── CMakeLists.txt                 # Build configuration for CMake
+```
 
 ## Installation
 
@@ -78,7 +89,7 @@ This will compile the source files and generate the executable.
 
    Make sure your system has the necessary GUI libraries (e.g., Qt or GTK) installed.
 
-### 3. Interact with the GUI
+### Interact with the GUI
 
 - **Starting Guesses:** The GUI will display the top five recommended starting words from `starting_guesses.txt`.
 - **Input Your Guess:** Enter your Wordle guess in the provided input field.

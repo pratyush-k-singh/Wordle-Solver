@@ -23,7 +23,7 @@ public:
         setFixedSize(450, 300);
 
         createWidgets();
-        remainingWords = loadWords("valid_words.txt"); // Start with all valid words
+        remainingWords = loadWords("../data/valid_words.txt"); // Start with all valid words
 
         displayStartingWords();
     }
@@ -90,7 +90,7 @@ private:
     }
 
     void displayStartingWords() {
-        startingWords = loadWords("starting_guesses.txt");
+        startingWords = loadWords("../starting_guesses.txt");
         guessList->clear();
         guessList->addItems(startingWords);
     }

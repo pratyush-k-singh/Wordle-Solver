@@ -84,7 +84,7 @@ std::set<std::string> fetch_words_from_page(int page_number) {
 
 int main() {
     std::set<std::string> all_words;
-    std::string output_file = "valid_words.txt";
+    std::string output_file = "../data/valid_words.txt";
     int total_pages = 26;
 
     for (int page_number = 1; page_number <= total_pages; ++page_number) {

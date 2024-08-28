@@ -78,8 +78,8 @@ void save_initial_guesses(const std::string& filename, const std::vector<std::st
 }
 
 int main() {
-    std::string input_filename = "valid_words.txt";
-    std::string output_filename = "starting_guesses.txt";
+    std::string input_filename = "../data/valid_words.txt";
+    std::string output_filename = "../data/starting_guesses.txt";
 
     try {
         std::vector<std::string> words = load_words(input_filename);
