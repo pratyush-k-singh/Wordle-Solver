@@ -1,8 +1,3 @@
-Here’s the updated README based on the structure and details you've provided, followed by the `main.cpp` implementation:
-
-## README.md
-
-```markdown
 # Wordle Solver
 
 A C++ based application designed to assist players in solving Wordle puzzles by recommending the best guesses based on letter frequency analysis.
