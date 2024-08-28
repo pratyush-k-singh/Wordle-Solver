@@ -1,6 +1,6 @@
 # Wordle Solver
 
-A Python-based application designed to assist players in solving Wordle puzzles by recommending the best guesses based on letter frequency analysis.
+A C++ based application designed to assist players in solving Wordle puzzles by recommending the best guesses based on letter frequency analysis.
 
 ## Features
 
@@ -13,19 +13,25 @@ A Python-based application designed to assist players in solving Wordle puzzles 
 ```plaintext
 wordle_solver/
 │
-├── README.md                   # Project documentation
-├── valid_words.txt             # List of valid Wordle words
-├── starting_guesses.txt        # Generated list of top five starting words
-├── wordle_solver.py            # Core logic for word filtering and guess recommendation
-└── wordle_solver_gui.py        # Tkinter-based GUI for user interaction
-```
+├── README.md                      # Project documentation
+├── valid_words.txt                # List of valid Wordle words
+├── starting_guesses.txt           # Generated list of top five starting words
+├── src/
+│   ├── main.cpp                   # Entry point for the program
+│   ├── wordle_solver.cpp          # Core logic for word filtering and guess recommendation
+│   └── wordle_solver_gui.cpp      # Implementation of GUI using a C++ framework (e.g., Qt or GTK)
+├── include/
+│   ├── wordle_solver.hpp          # Header for core logic functions
+│   └── wordle_solver_gui.hpp      # Header for GUI-related functions
+└── CMakeLists.txt                 # Build configuration for CMake
 
 ## Installation
 
 ### Prerequisites
 
-- **Python 3.x**
-- Recommended to use a virtual environment to manage dependencies.
+- **C++17 or later**
+- **CMake** (for building the project)
+- A C++ GUI library if implementing the GUI (e.g., **Qt** or **GTK**)
 
 ### Clone the Repository
 
@@ -34,43 +40,43 @@ git clone https://github.com/yourusername/wordle_solver.git
 cd wordle_solver
 ```
 
-### Install Required Libraries
+### Build the Project
 
-This project requires only standard Python libraries. However, if you need to install `tkinter` on your system, you can do so as follows:
+1. **Generate the Build Files:**
+   ```bash
+   mkdir build
+   cd build
+   cmake ..
+   ```
 
-- **Ubuntu/Debian:**
-  ```bash
-  sudo apt-get install python3-tk
-  ```
+2. **Compile the Project:**
+   ```bash
+   cmake --build .
+   ```
 
-- **macOS:**
-  `tkinter` should be installed with Python by default. If not, you may need to install it via Homebrew:
-  ```bash
-  brew install python-tk
-  ```
+This will compile the source files and generate the executable.
 
-- **Windows:**
-  `tkinter` comes pre-installed with Python.
+### Run the Project
 
-## Usage
+1. **Generate Initial Starting Guesses:**
 
-### 1. Generate Initial Starting Guesses
+   Run the command to generate the top five starting guesses based on the word list:
 
-Before running the GUI, you need to generate the top five starting guesses based on the word list:
+   ```bash
+   ./wordle_solver
+   ```
 
-```bash
-python wordle_solver.py
-```
+   This will read the `valid_words.txt` file and create a `starting_guesses.txt` file containing the top five recommended starting words.
 
-This will read the `valid_words.txt` file and create a `starting_guesses.txt` file containing the top five recommended starting words.
+2. **Run the Wordle Solver GUI:**
 
-### 2. Run the Wordle Solver GUI
+   If you have implemented the GUI, launch the GUI application:
 
-To launch the GUI application:
+   ```bash
+   ./wordle_solver_gui
+   ```
 
-```bash
-python wordle_solver_gui.py
-```
+   Make sure your system has the necessary GUI libraries (e.g., Qt or GTK) installed.
 
 ### 3. Interact with the GUI
 
@@ -79,12 +85,12 @@ python wordle_solver_gui.py
 - **Input the Result:** Enter the result using `b`, `g`, and `y` to indicate black, green, and yellow feedback from Wordle (e.g., "bgybb").
 - **Submit:** Click the "Submit" button to receive the next best guess.
 
-### 4. Customize the Word List
+### Customize the Word List
 
 If you want to update the word list:
 
 1. Replace or update the `valid_words.txt` file with your own list of valid words (one word per line).
-2. Run the `wordle_solver.py` script again to generate a new `starting_guesses.txt` file.
+2. Run the `wordle_solver` executable again to generate a new `starting_guesses.txt` file.
 
 ## How It Works
 
