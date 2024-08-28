@@ -1,86 +1,114 @@
-import os
-from collections import Counter
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+#include <set>
+#include <filesystem>
 
-def load_words(filename):
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(script_dir, filename)
-    with open(file_path, 'r') as file:
-        words = [line.strip() for line in file]
-    return words
+// Load words from a file into a vector of strings
+std::vector<std::string> load_words(const std::string& filename) {
+    std::vector<std::string> words;
+    std::ifstream file(filename);
 
-def count_letter_frequencies(words):
-    """
-    Count the frequency of each letter across the list of words.
+    if (!file) {
+        throw std::runtime_error("File not found: " + filename);
+    }
 
-    Args:
-        words (list of str): List of candidate words.
+    std::string word;
+    while (std::getline(file, word)) {
+        words.push_back(word);
+    }
 
-    Returns:
-        dict: A dictionary with letters as keys and their frequencies as values.
-    """
-    letter_freq = Counter()
-    for word in words:
-        letter_freq.update(word)  # Count each letter in the word
-    return letter_freq
+    return words;
+}
 
-def get_best_single_words(words, top_n=5):
-    """
-    Find the best single words that maximize letter coverage.
+// Count the frequency of each letter across the list of words
+std::unordered_map<char, int> count_letter_frequencies(const std::vector<std::string>& words) {
+    std::unordered_map<char, int> letter_freq;
 
-    Args:
-        words (list of str): List of candidate words.
-        top_n (int): Number of top words to return.
+    for (const auto& word : words) {
+        std::set<char> unique_letters(word.begin(), word.end());  // Set to ensure unique letters
+        for (char letter : unique_letters) {
+            letter_freq[letter]++;
+        }
+    }
 
-    Returns:
-        list: A list of the top words.
-    """
-    letter_freq = count_letter_frequencies(words)
-    sorted_words = sorted(words, key=lambda word: sum(letter_freq[char] for char in set(word)), reverse=True)
-    return sorted_words[:top_n]
+    return letter_freq;
+}
 
-def save_initial_guesses(filename, guesses):
-    """
-    Save the list of single words to a file in the same directory as the script.
+// Find the best single words that maximize letter coverage
+std::vector<std::string> get_best_single_words(const std::vector<std::string>& words, int top_n = 5) {
+    std::unordered_map<char, int> letter_freq = count_letter_frequencies(words);
 
-    Args:
-        filename (str): The name of the file to save to.
-        guesses (list of str): The list of single words to save.
-    """
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(script_dir, filename)
-    with open(file_path, 'w') as file:
-        for word in guesses:
-            file.write(f"{word}\n")
+    std::vector<std::pair<int, std::string>> scored_words;
 
-def main():
-    """
-    Main function to read the word list from a file, calculate the best initial guesses, 
-    and save them to a file.
-    """
-    input_filename = "valid_words.txt"
-    output_filename = "starting_guesses.txt"
-    try:
-        words = load_words(input_filename)
-        
-        print(f"Loaded {len(words)} words from {input_filename}.")
-        
-        if not words:
-            print("The word list is empty.")
-            return
-        
-        best_guesses = get_best_single_words(words)
-        
-        if best_guesses:
-            print(f"Top initial guesses: {', '.join(best_guesses)}")
-            save_initial_guesses(output_filename, best_guesses)
-            print(f"Best initial guesses saved to {output_filename}")
-        else:
-            print("No guesses found.")
+    for (const auto& word : words) {
+        int score = 0;
+        std::set<char> unique_letters(word.begin(), word.end());
+        for (char letter : unique_letters) {
+            score += letter_freq[letter];
+        }
+        scored_words.emplace_back(score, word);
+    }
 
-    except FileNotFoundError:
-        print(f"File not found: {input_filename}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+    // Sort words by their score in descending order
+    std::sort(scored_words.rbegin(), scored_words.rend());
 
-if __name__ == "__main__":
-    main()
+    std::vector<std::string> best_words;
+    for (int i = 0; i < std::min(top_n, (int)scored_words.size()); ++i) {
+        best_words.push_back(scored_words[i].second);
+    }
+
+    return best_words;
+}
+
+// Save the list of best guesses to a file
+void save_initial_guesses(const std::string& filename, const std::vector<std::string>& guesses) {
+    std::ofstream file(filename);
+
+    if (!file) {
+        throw std::runtime_error("Cannot open file: " + filename);
+    }
+
+    for (const auto& guess : guesses) {
+        file << guess << std::endl;
+    }
+}
+
+int main() {
+    std::string input_filename = "valid_words.txt";
+    std::string output_filename = "starting_guesses.txt";
+
+    try {
+        std::vector<std::string> words = load_words(input_filename);
+
+        std::cout << "Loaded " << words.size() << " words from " << input_filename << "." << std::endl;
+
+        if (words.empty()) {
+            std::cout << "The word list is empty." << std::endl;
+            return 0;
+        }
+
+        std::vector<std::string> best_guesses = get_best_single_words(words);
+
+        if (!best_guesses.empty()) {
+            std::cout << "Top initial guesses: ";
+            for (const auto& guess : best_guesses) {
+                std::cout << guess << " ";
+            }
+            std::cout << std::endl;
+
+            save_initial_guesses(output_filename, best_guesses);
+            std::cout << "Best initial guesses saved to " << output_filename << std::endl;
+        } else {
+            std::cout << "No guesses found." << std::endl;
+        }
+
+    } catch (const std::exception& e) {
+        std::cerr << "An error occurred: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
