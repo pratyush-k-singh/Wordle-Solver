@@ -5,7 +5,7 @@ A C++ based application designed to assist players in solving Wordle puzzles by 
 ## Features
 
 - **Initial Recommendations:** The application provides a list of the top five recommended starting words based on letter frequency analysis.
-- **Interactive GUI:** A simple graphical interface using a C++ framework where users can input their guesses and the results, and receive the best next guess based on the remaining possible words.
+- **Interactive GUI:** A simple graphical interface using a Qt framework where users can input their guesses and the results, and receive the best next guess based on the remaining possible words.
 - **Customizable Word List:** The application loads valid Wordle words from a text file, allowing easy customization and updates.
 
 ## Project Structure
@@ -37,7 +37,7 @@ wordle_solver/
 
 - **C++17 or later**
 - **CMake** (for building the project)
-- A C++ GUI library if implementing the GUI (e.g., **Qt** or **GTK**)
+- **Qt** library for the GUI
 
 ### Clone the Repository
 
