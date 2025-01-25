@@ -1,0 +1,2 @@
+C:\Qt\Tools\mingw1310_64\bin\ar.exe qc libsolver_lib.a CMakeFiles/solver_lib.dir/solver_lib_autogen/mocs_compilation.cpp.obj CMakeFiles/solver_lib.dir/src/wordle_solver.cpp.obj
+C:\Qt\Tools\mingw1310_64\bin\ranlib.exe libsolver_lib.a

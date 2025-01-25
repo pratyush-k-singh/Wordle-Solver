@@ -1,0 +1,8 @@
+set(__QT_DEPLOY_TARGET_solver_lib_FILE C:/Users/HP/Coding Projects/Wordle-Solver/build/libsolver_lib.a)
+set(__QT_DEPLOY_TARGET_solver_lib_TYPE STATIC_LIBRARY)
+set(__QT_DEPLOY_TARGET_wordle_solver_FILE C:/Users/HP/Coding Projects/Wordle-Solver/build/wordle_solver.exe)
+set(__QT_DEPLOY_TARGET_wordle_solver_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_wordle_solver_RUNTIME_DLLS C:/Qt/6.8.1/mingw_64/bin/Qt6Widgets.dll;C:/Qt/6.8.1/mingw_64/bin/Qt6Gui.dll;C:/Qt/6.8.1/mingw_64/bin/Qt6Core.dll)
+set(__QT_DEPLOY_TARGET_initial_guesses_FILE C:/Users/HP/Coding Projects/Wordle-Solver/build/initial_guesses.exe)
+set(__QT_DEPLOY_TARGET_initial_guesses_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_initial_guesses_RUNTIME_DLLS )
